@@ -21,3 +21,7 @@ packages by [Ari Lamstein](http://www.arilamstein.com). The other dependencies i
 The map shows variation in mortality rates throughout the world for a specified year.
 
 The trend line shows changes in mortality rate for a specific country. (Try "South Korea" to see something interesting.)
+
+***Issues***
+
+The app expects every region in the _country.regions_ data set. However, the following are either missing or lack data: Antarctica, Kosovo, Taiwan, and Western Sahara. The app will work, but the map will not color these four regions.
