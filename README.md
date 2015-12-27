@@ -24,4 +24,4 @@ The trend line shows changes in mortality rate for a specific country. (Try "Sou
 
 ***Issues***
 
-The app expects every region in the _country.regions_ data set. However, the following are either missing or lack data: Antarctica, Kosovo, Taiwan, and Western Sahara. The app will work, but the map will not color these four regions.
+The app expects every region in the _country.regions_ data set. However, the following are either missing or lack data: Antarctica, Kosovo, Taiwan, and Western Sahara. The app will work, but the map will not color these four regions. The problem already exists in the _choroplethr_ code samples.
