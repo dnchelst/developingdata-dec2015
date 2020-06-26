@@ -1,17 +1,32 @@
 library(shiny)
 library(choroplethr)
 library(choroplethrMaps)
-library(dplyr)
+library(tidyverse)
 require(markdown)
-library(ggplot2)
-mortality2 <- read.csv("u5mr.csv", stringsAsFactors=FALSE)
+
+data(country.regions)
+load("u5mr.RData")
+first.year <- 1990
+last.year <- 2018
 
 MortalityValues <- function(year1, region1){
-  mortality.dfs <- list()
-  mortality.dfs$a = filter(mortality2, year==year1) %>%
-    mutate(rank=rank(value))
-  mortality.dfs$b = filter(mortality2, region==region1)
-  return(mortality.dfs)
+  mortality <- list()
+  one.year <- mortality2 %>% filter(year==year1) 
+  one.region <- mortality2 %>% filter(region==region1)
+  one.region.year <- one.region %>% 
+    filter(year==year1)
+  value1 <- one.region.year$value
+  rank1 <- one.region.year$rank
+  percent1 <- 100 * with(one.region, 
+    1 - value[year==last.year] / value[year==first.year])
+  direction <- if_else(percent1 > 100, "in", "de") %>% paste0("creased")
+  mortality <- list(one.year = one.year, 
+                    one.region=one.region,
+                    percent=percent1, 
+                    direction=direction,
+                    value=value1,
+                    rank=rank1)
+    return(mortality)
 }
 
 title_first_part <- "Under 5 Mortality Rates (per 1000 births):\n"
@@ -21,20 +36,15 @@ shinyServer(function(input, output) {
   # render the boxplot
   output$summary <- renderPrint({
     #input$gobutton
-    mortality.dfs <- MortalityValues(input$year, input$region)
-    mortality.val <- filter(mortality.dfs$a, region==input$region)
-    direction.percent <- with(mortality.dfs$b, 
-                              1 - value[year==2015] / value[year==1990])
-    direction.val <- ifelse(direction.percent > 1, "increased", "decreased")
-    
-    line1 <- paste("The region's mortality rate is", mortality.val$value, 
+    mortality <- MortalityValues(input$year, input$region)
+    line1 <- paste("The region's mortality rate is", mortality$value, 
                    "per 1,000 births." )
-    line2 <- paste0("The region ranks ", mortality.val$rank, " out of ",
-                   sum(!is.na(mortality.dfs$a$value)), 
+    line2 <- paste0("The region ranks ", mortality$rank, " out of ",
+                   nrow(mortality$one.year), 
                   " in the world for mortality rates in ", input$year,".")
-    line3 <- paste("Between 1990 and 2015, the region's mortality rates", 
-                    direction.val, "by", 
-                   round(100 * abs(direction.percent)), "percent.")
+    line3 <- paste0("Between ", first.year, " and ", last.year, 
+                    ", the region's mortality rates ", mortality$direction, 
+                    " by ", round(abs(mortality$percent)), " percent.")
     cat(line1, fill=TRUE)
     cat(line2, fill=TRUE)
     cat(line3)
@@ -42,13 +52,13 @@ shinyServer(function(input, output) {
   
   # render the state choropleth map
   output$map_country <- renderPlot({
-    mortality.a <- filter(mortality2, year==input$year) %>%
-      mutate(rank=rank(value))
-    choro = CountryChoropleth$new(mortality.a)
-    choro$title = paste(input$year, "Under 5 Mortality Rates")
-    choro$ggplot_scale = scale_fill_brewer(name="U5MR", palette='RdYlGn', 
+    mortality.a <- filter(mortality2, year==input$year) 
+    choro <- CountryChoropleth$new(mortality.a)
+    choro$title <- paste(input$year, "Under 5 Mortality Rates")
+    choro$ggplot_scale <- scale_fill_brewer(name="U5MR", palette='RdYlGn', 
                                            direction=-1)
     choro$set_num_colors(9)
+    choro$warn <- FALSE
     choro$render()
     
   })

@@ -2,10 +2,7 @@ library(shiny)
 
 # the names of the demographic variables are the column names of this data.frame
 # the first column name is a list of the regions, so skip it
-data(country.regions, package="choroplethrMaps")
-missing.choices = c("western sahara", "taiwan", "antarctica", "kosovo")
-region.choices <- setdiff(country.regions$region, missing.choices)
-region.choices <- sort(region.choices)
+load("u5mr.RData")
 
 shinyUI(fluidPage(
   
@@ -17,7 +14,7 @@ shinyUI(fluidPage(
     sidebarPanel(      
       selectInput("year",
                   label = "Select year",
-                  choices = c(1990:2015),
+                  choices = c(1990:2018),
                   selected = 2010),
       selectInput("region",
                   label = "Select region",
