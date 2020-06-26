@@ -66,7 +66,7 @@ shinyServer(function(input, output) {
   output$country_trend <- renderPlot({
     mortality.b <- filter(mortality2, region==input$region) 
     mortality.c <- filter(mortality.b, year==input$year)
-    qplot(mortality.b$year, mortality.b$value, group=1) + 
+    qplot(mortality.b$year, mortality.b$value, group=1, ymin=0) + 
       geom_line(colour="blue", size=1) + 
       geom_point(colour="black", shape=16, size=3, fill="black") + 
       xlab("Year") + ylab("Mortality rate (per 1,000 births)") + 
