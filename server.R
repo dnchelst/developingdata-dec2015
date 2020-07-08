@@ -68,7 +68,7 @@ shinyServer(function(input, output) {
                           reverse=TRUE, n=10)
     labels <- sprintf("<strong>%s</strong><br/>%g deaths per 1,000 births",
                       mortality.map$NAME_EN, mortality.map$SH.DYN.MORT) %>% 
-      lapply(str_replace, pattern="NA deaths per 1,000 births",
+      lapply(gsub, pattern="NA deaths per 1,000 births", 
              replacement="Unknown") %>% 
       lapply(htmltools::HTML) 
     
