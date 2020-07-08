@@ -1,4 +1,5 @@
 library(shiny)
+library(leaflet)
 
 # the names of the demographic variables are the column names of this data.frame
 # the first column name is a list of the regions, so skip it
@@ -16,11 +17,10 @@ shinyUI(fluidPage(
                   label = "Select year",
                   choices = c(1990:2018),
                   selected = 2010),
-      selectInput("region",
-                  label = "Select region",
-                  choices = region.choices,
-                  selected = "united states of america")#,
-      #actionButton("goButton", "Go!")
+      selectInput("country",
+                  label = "Select country",
+                  choices = country.choices,
+                  selected = "United States")
     ),
     
     mainPanel(
@@ -28,7 +28,7 @@ shinyUI(fluidPage(
       h4("Ranking"),
       verbatimTextOutput("summary"),
 
-      plotOutput("map_country"),
+      leafletOutput("map_country"),
       plotOutput("country_trend")
     )
   )

@@ -11,12 +11,12 @@ year.
 The trend line shows changes in mortality rate for a specific country. 
 (Try "south korea" to see something interesting.)
 
-It relies on the 
-[choroplethr](https://cran.r-project.org/web/packages/choroplethr/index.html) 
-and 
-[choroplethrMaps](https://cran.r-project.org/web/packages/choroplethrMaps/index.html) 
-packages by [Ari Lamstein](http://www.arilamstein.com). 
-The other dependencies include 
-_shiny_, _markdown_, and core _tidyverse_ packages. 
-Data was collected with the aid of the 
-[WDI](https://cran.r-project.org/web/packages/WDI/WDI.pdf) package.
+It relies on the [Leaflet for R](https://https://rstudio.github.io/leaflet/)
+package. Other dependencies include _shiny_, _markdown_, _geojsonio_, and 
+core _tidyverse_ packages. 
+[World Bank Development Indicator Data](http://wdi.worldbank.org/table/2.18) 
+was collected with the aid of the 
+[WDI](https://cran.r-project.org/web/packages/WDI/WDI.pdf) package and 
+associated maps can be downloaded from its 
+[data catalog](https://datacatalog.worldbank.org/) 
+[here](https://development-data-hub-s3-public.s3.amazonaws.com/ddhfiles/779551/wb_boundaries_geojson_lowres.zip).
