@@ -3,7 +3,7 @@ _By Dov Chelst_
 This application allows you to examine World Bank data on under-5 mortality 
 rates.
 
-It collects information between 1990 and 2018.
+It collects information between 1990 and 2019.
 
 The map shows variation in mortality rates throughout the world for a specified 
 year.
