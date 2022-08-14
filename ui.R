@@ -15,7 +15,7 @@ shinyUI(fluidPage(
     sidebarPanel(      
       selectInput("year",
                   label = "Select year",
-                  choices = c(1990:2019),
+                  choices = c(1990:2020),
                   selected = 2010),
       selectInput("country",
                   label = "Select country",

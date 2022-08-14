@@ -4,7 +4,7 @@ _Dov Chelst_
 This repository includes a small application that allows you to examine 
 World Bank data on under-5 mortality rates.
 
-It collects information between 1990 and 2019.
+It collects information between 1990 and 2020.
 
 * _ui.R_ and _server.R_ deploy the application which is also available on [shinyapps.io](https://dnchelst.shinyapps.io/u5mr-app).
 * The data is available in _u5mr.csv_ and as an RData file. 

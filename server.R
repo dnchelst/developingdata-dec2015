@@ -8,7 +8,7 @@ library(leaflet)
 load("u5mr.RData")
 load("u5mr-map.RData")
 first.year <- 1990
-last.year <- 2019
+last.year <- 2020
 
 MortalityRates <- function(year1, country1){
   mortality <- list()
